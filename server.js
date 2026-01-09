@@ -47,13 +47,15 @@ app.post("/api/redeem", (req, res) => {
    GIRAR ROLETA
 ===================== */
 app.post("/api/spin", (req, res) => {
-  const items = require("./public/items.json");
+  const items = JSON.parse(
+    fs.readFileSync("./public/items.json", "utf-8")
+  );
+
   const db = readDB();
 
   if (db.users.guest.saldo <= 0)
     return res.status(400).json({ error: "Sem giros" });
 
-  // chance real
   const total = items.reduce((s, i) => s + i.chance, 0);
   let r = Math.random() * total;
   let prize;
@@ -65,6 +67,13 @@ app.post("/api/spin", (req, res) => {
       break;
     }
   }
+
+  // 🔥 LOG DO BACKEND
+  console.log("🎯 GIRO:", {
+    premio: prize.name,
+    chance: prize.chance,
+    totalItems: items.length
+  });
 
   db.users.guest.saldo--;
   db.spins++;
@@ -94,3 +103,4 @@ app.post("/api/admin/add-code", (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log("🔥 Server rodando"));
+

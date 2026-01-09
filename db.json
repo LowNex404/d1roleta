@@ -5,16 +5,8 @@
     }
   },
   "codes": [
-    {
-      "code": "TEST",
-      "amount": 1,
-      "used": true
-    },
-    {
-      "code": "CODE001",
-      "amount": 1,
-      "used": false
-    }
+  { "code": "UCHTEST", "amount": 1, "used": false },
+  { "code": "UCHTEST2", "amount": 2, "used": false }
   ],
-  "spins": 1
+  "spins": 10
 }

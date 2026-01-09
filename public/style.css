@@ -3,6 +3,11 @@
   font-family: "Poppins", sans-serif;
   font-weight: 500;
 }
+.luckiest-guy-regular {
+  font-family: "Luckiest Guy", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
 
 h1, h2 {
   font-family: "Montserrat", sans-serif;
@@ -10,33 +15,112 @@ h1, h2 {
   letter-spacing: 1px;
 }
 h1 {
+  font-family: "Luckiest Guy";
+  letter-spacing: 2px;
   text-transform: uppercase;
 }
 
 .logo {
   position: fixed;
   top: 16px;
-  right: 16px;
-  width: 80px;
+  left: 16px; /* agora esquerda */
+  width: 100px;
   z-index: 1000;
-  filter: drop-shadow(0 0 8px rgba(0,255,255,0.4));
+  filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.6));
 }
 
+.bg-logo {
+  position: fixed;
+  inset: 0;
+  background-image: url("images/logo.png"); /* ajuste o caminho */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.04; /* bem discreto */
+  z-index: 0;
+  pointer-events: none;
+}
+@media (max-width: 768px) {
+.logo {
+  position: fixed;
+  top: 16px;
+  left: 16px; /* agora esquerda */
+  width: 80px;
+  z-index: 1000;
+  filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.6));
+}
+
+}
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(circle at top, #043358, #000000);
+  background: #000;
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+
+/* =====================
+   GLOW BACKGROUND (RED) — AJUSTADO
+===================== */
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  width: 600px;          /* 🔥 MAIOR */
+  height: 600px;         /* 🔥 MAIOR */
+  filter: blur(160px);   /* mais suave mesmo sendo grande */
+  opacity: 0.55;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Glow superior esquerdo */
+body::before {
+  top: 200px;
+  left: -280px;
+  background: radial-gradient(circle, #ff1a1a 0%, transparent 70%);
+  animation: floatGlow1 14s ease-in-out infinite alternate;
+}
+
+/* Glow inferior direito (MAIS PRA BAIXO) */
+body::after {
+  bottom: -150px;   /* ⬇️ mais pra baixo */
+  right: -280px;
+  background: radial-gradient(circle, #ff0000 0%, transparent 95%);
+  animation: floatGlow2 16s ease-in-out infinite alternate;
+}
+
+/* Animações */
+@keyframes floatGlow1 {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(160px, 120px);
+  }
+}
+
+@keyframes floatGlow2 {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-140px, -100px);
+  }
 }
 
 .container {
   width: 100%;
   max-width: 420px;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
+
 
 h1 {
   margin-bottom: 15px;
@@ -49,7 +133,8 @@ h1 {
 canvas {
   width: 100%;
   border-radius: 50%;
-  box-shadow: 0 0 40px rgba(0,0,0,.8);
+  border: 8px solid rgba(32, 32, 32, 0.8);
+  box-shadow: 0 0 40px rgba(94, 1, 1, 0.8);
 }
 
 .pointer {
@@ -61,8 +146,8 @@ canvas {
   height: 0;
   border-left: 14px solid transparent;
   border-right: 14px solid transparent;
-  border-top: 26px solid cyan; /* AGORA APONTA PRA BAIXO */
-  filter: drop-shadow(0 0 6px rgba(0, 255, 255, 0.7));
+  border-top: 26px solid red;
+  filter: drop-shadow(0 0 6px rgba(255, 0, 0, 0.8));
 }
 
 .saldo {
@@ -79,33 +164,108 @@ input, button {
 }
 
 button {
-  background: linear-gradient(135deg, #00ffff, #008b8b);
-  color: #000;
+  background: linear-gradient(135deg, #ff1a1a, #8b0000);
+  color: #fff;
   cursor: pointer;
   font-weight: bold;
   transition: all 0.25s ease;
-  box-shadow: 0 0 12px rgba(0,255,255,0.4);
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.6);
 }
 
 button:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 18px rgba(0,255,255,0.9);
+  box-shadow: 0 0 22px rgba(255, 0, 0, 1);
 }
+
 input {
-  background: #0f111a;
+  background: #0a0a0a;
   color: #fff;
-  border: 1px solid rgba(0,255,255,0.3);
+  border: 1px solid rgba(255, 0, 0, 0.4);
   outline: none;
 }
 
-input::placeholder {
-  color: #888;
+input:focus {
+  border-color: red;
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
 }
 
-input:focus {
-  border-color: #00ffff;
-  box-shadow: 0 0 8px rgba(0,255,255,0.6);
+.whatsapp {
+ display: inline-block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 6px;
+  border: none;
+  text-decoration: none;
+  background: linear-gradient(135deg, #ff1a1a, #8b0000);
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.6);
 }
+.whatsapp:hover {
+   transform: scale(1.05);
+   box-shadow: 0 0 22px rgba(255, 0, 0, 1);
+}
+/* =====================
+   INPUT + BOTÃO AVIÃO
+===================== */
+
+.redeem-wrapper {
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* sobrescreve o input global */
+.redeem-wrapper input {
+  padding-right: 52px;
+  border-radius: 10px;
+}
+
+/* botão avião */
+.redeem-wrapper button {
+  position: absolute;
+  right: 3px;
+  top: 59%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  margin: 0;
+  border-radius: 8px;
+  font-weight: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ícone */
+.redeem-wrapper .material-symbols-outlined {
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* hover mais suave */
+.redeem-wrapper button:hover {
+  transform: translateY(-50%) scale(1.08);
+}
+/* =====================
+   AJUSTE MOBILE
+===================== */
+@media (max-width: 768px) {
+.whatsapp{
+  width: 80%;
+}
+input, button {
+  width: 80%;
+}
+.redeem-wrapper button {
+  right: 41px;
+}
+}
+
 
 /* =====================
    POPUPS (SEU CÓDIGO ORIGINAL)
@@ -130,23 +290,6 @@ input:focus {
   position: relative;
   color: #fff;
   animation: popIn 0.3s ease-out;
-}
-
-.popup.comum {
-  border: 2px solid #777;
-  box-shadow: 0 0 10px #777;
-}
-.popup.raro {
-  border: 2px solid #00ffff;
-  box-shadow: 0 0 16px #00ffff;
-}
-.popup.epico {
-  border: 2px solid #9a4dff;
-  box-shadow: 0 0 16px #9a4dff;
-}
-.popup.lendario {
-  border: 2px solid #ffcc33;
-  box-shadow: 0 0 18px #ffcc33;
 }
 
 .popup .close {
@@ -203,7 +346,7 @@ input:focus {
   color: #ffcc33;
 }
 
-.whatsapp {
+/*.whatsapp {
   margin-top: 20px;
   text-align: center;
   color: #ffffff;
@@ -212,9 +355,27 @@ input:focus {
   transition: all 0.3s ease;
   white-space: pre-line;
 }
+  .whatsapp:hover {
+  color: red;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+  font-size: 16px
+}*/
 
-.whatsapp:hover {
-  color: #00ffff;
-  text-shadow: 0 0 10px rgba(0,255,255,0.8);
-  font-size: 16px;
+/* =====================
+   VIDEO REVEAL OVERLAY
+===================== */
+#videoOverlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  display: none;
 }
+
+#videoOverlay video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+

@@ -1,58 +1,38 @@
 [
   {
-    "name": "100 Diamantes",
+    "name": "Caixa Básica",
+    "chance": 10,
+    "colors": ["#444444", "#222222"],
+    "icon": "/icons/caixa-basica.png"
+  },
+  {
+    "name": "Caixa Full",
+    "chance": 0.01,
+    "colors": ["#ff0000", "#660000"],
+    "icon": "/icons/caixa-full.png"
+  },
+  {
+    "name": "Passe Booyah",
     "chance": 90,
-    "colors": ["#777777", "#555555"]
-  },
-
-  {
-    "name": "500 Diamantes",
-    "chance": 5,
-    "colors": ["#00ffff", "#17c1f3"]
-  },
-
-  {
-    "name": "60 Diamantes",
-    "chance": 35,
-    "colors": ["#777777", "#555555"]
+    "colors": ["#444444", "#222222"],
+    "icon": "/icons/passe.png"
   },
   {
-    "name": "Conta Básica",
+    "name": "Caixa Média",
+    "chance": 2,
+    "colors": ["#444444", "#222222"],
+    "icon": "/icons/caixa-media.png"
+  },
+  {
+    "name": "Caixa Lendária",
     "chance": 0.001,
-    "colors": ["#9a4dff", "#5d1fb3"]
-  },
-
-  {
-    "name": "Pack de Sensibilidade",
-    "chance": 85,
-    "colors": ["#777777", "#555555"]
+    "colors": ["#ff0000", "#660000"],
+    "icon": "/icons/caixa-lendaria.png"
   },
   {
-    "name": "Conta Aleatória",
-    "chance": 5,
-    "colors": ["#00ffff", "#17c1f3"]
-  },
-
-  {
-    "name": "Pix Premiado",
-    "chance": 25,
-    "colors": ["#777777", "#555555"]
-  },
-
-   {
-    "name": "Conta com Angelical",
-    "chance": 0.001,
-    "colors": ["#9a4dff", "#5d1fb3"]
-  },
-    {
-    "name": "300 Diamantes",
-    "chance": 5,
-    "colors": ["#777777", "#555555"]
-  },
-  
-  {
-    "name": "Conta Antiga",
-    "chance": 0.0001,
-    "colors": ["#ffcc33", "#cc9a00"]
+    "name": "380 Diamantes",
+    "chance": 90,
+    "colors": ["#444444", "#222222"],
+    "icon": "/icons/diamantes.png"
   }
 ]

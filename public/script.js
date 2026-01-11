@@ -24,7 +24,7 @@ let saldo = 0;
 /* =====================
    LOAD DATA
 ===================== */
-fetch("items.json")
+fetch("/items.json")
   .then(r => r.json())
   .then(data => {
     items = data;
@@ -44,7 +44,9 @@ items.forEach(item => {
    BUSCAR SALDO
 ===================== */
 async function loadSaldo() {
-  const res = await fetch("/api/saldo");
+  const res = await fetch("/api/saldo", {
+    credentials: "include"
+  });
   const data = await res.json();
   saldo = data.saldo;
   updateUI();
@@ -63,20 +65,19 @@ if (saldo <= 0) {
       <input id="codeInput" placeholder="Resgatar Código" />
 
       <button id="redeemBtn" aria-label="Resgatar código">
-        <span class="material-symbols-outlined">
-          send
-        </span>
+        <span class="material-symbols-outlined">send</span>
       </button>
     </div>
 
-    <a class="whatsapp" href="https://wa.me/5573991345299" target="_blank">
+    <button class="whatsapp" id="buyGirosBtn">
       COMPRAR GIROS
-    </a>
+    </button>
   `;
-  
 
   document.getElementById("redeemBtn").onclick = redeemCode;
-} else { const btn = document.createElement("button"); btn.textContent = "GIRAR"; btn.onclick = spin; actions.appendChild(btn); }
+  document.getElementById("buyGirosBtn").onclick = showBuyPopup;
+}
+ else { const btn = document.createElement("button"); btn.textContent = "GIRAR"; btn.onclick = spin; actions.appendChild(btn); }
 }
 
 /* =====================
@@ -97,6 +98,62 @@ function playRevealVideo(duration = 3000) {
       resolve();
     }, duration);
   });
+}
+
+/* =====================
+   POPUP BUY
+===================== */
+function showBuyPopup() {
+  const overlay = document.createElement("div");
+  overlay.className = "popup-overlay";
+
+  const popup = document.createElement("div");
+  popup.className = "popup buy";
+
+  popup.innerHTML = `
+    <div class="close">✖</div>
+
+    <img src="images/logo.png" class="popup-logo" alt="Logo" />
+
+    <a 
+      href="https://lastlink.com/p/CD7F12612/checkout-payment/"
+      class="whatsapp"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      COMPRAR 1 GIRO
+    </a>
+
+    <a 
+      href="https://lastlink.com/p/C524242FB/checkout-payment/"
+      class="whatsapp"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      COMPRAR 2 GIROS
+    </a>
+
+    <a 
+      href="https://lastlink.com/p/C95ADA9D8/checkout-payment/"
+      class="whatsapp"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      COMPRAR 4 GIROS
+    </a>
+  `;
+
+  // fecha no X
+  popup.querySelector(".close").onclick = () => overlay.remove();
+
+  // fecha clicando fora
+  overlay.addEventListener("click", () => overlay.remove());
+
+  // 🔥 ISSO AQUI É O SEGREDO
+  popup.addEventListener("click", e => e.stopPropagation());
+
+  overlay.appendChild(popup);
+  document.body.appendChild(overlay);
 }
 
 
@@ -133,11 +190,13 @@ async function redeemCode() {
     return;
   }
 
-  const res = await fetch("/api/redeem", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ code: codeValue })
-  });
+const res = await fetch("/api/redeem", {
+  method: "POST",
+  credentials: "include",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ code: codeValue })
+});
+
 
   const data = await res.json();
 
@@ -231,16 +290,27 @@ async function spin() {
   if (spinning) return;
   spinning = true;
 
-  const res = await fetch("/api/spin", { method: "POST" });
-  const data = await res.json();
+const res = await fetch("/api/spin", {
+  method: "POST",
+  credentials: "include"
+});
+const data = await res.json();
 
-  if (!res.ok) {
-    spinning = false;
-    showMessagePopup("erro", "Erro", data.error);
-    return;
-  }
+if (!res.ok) {
+  spinning = false;
+  showMessagePopup("erro", "Erro", data.error);
+  return;
+}
 
-  console.log("🎰 GIRO:", data.prize.name);
+// 🔹 AQUI entra a verificação
+if (!data.prize || !data.prize.name) {
+  spinning = false;
+  showMessagePopup("erro", "Erro", "Prêmio inválido.");
+  return;
+}
+
+console.log("🎰 GIRO:", data.prize.name);
+
 
   const index = items.findIndex(i => i.name === data.prize.name);
   const slice = (Math.PI * 2) / items.length;

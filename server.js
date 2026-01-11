@@ -1,11 +1,23 @@
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
-const { v4: uuid } = require("uuid");
+const crypto = require("crypto");
+
+function generateId() {
+  return crypto.randomUUID();
+}
+
 require("dotenv").config(); // 🔹 Carrega as variáveis do .env
+const cookieParser = require("cookie-parser");
 
 const app = express();
-app.use(cors());
+
+app.use(cookieParser());
+app.use(cors({
+  origin: true,
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(express.static("public"));
 
@@ -19,12 +31,35 @@ function writeDB(data) {
   fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), "utf-8");
 }
 
+// Cria um id, ou pega o existente.
+function getUser(req, res, db) {
+  let userId = req.cookies.userId;
+
+  if (!userId) {
+    userId = crypto.randomUUID();
+    res.cookie("userId", userId, {
+      httpOnly: true,
+      sameSite: "lax",
+      maxAge: 1000 * 60 * 60 * 24 * 365 // 1 ano
+    });
+  }
+
+  if (!db.users[userId]) {
+    db.users[userId] = { saldo: 0 };
+  }
+
+  return db.users[userId];
+}
+
+
 /* =====================
    GET SALDO
 ===================== */
 app.get("/api/saldo", (req, res) => {
   const db = readDB();
-  res.json(db.users.guest);
+  const user = getUser(req, res, db);
+res.json(user);
+
 });
 
 /* =====================
@@ -39,7 +74,9 @@ app.post("/api/redeem", (req, res) => {
   if (found.used) return res.status(400).json({ error: "Código já usado" });
 
   found.used = true;
-  db.users.guest.saldo += found.amount;
+  const user = getUser(req, res, db);
+user.saldo += found.amount;
+
   writeDB(db);
 
   res.json({ success: true, amount: found.amount });
@@ -52,7 +89,10 @@ app.post("/api/spin", (req, res) => {
   const items = JSON.parse(fs.readFileSync("./public/items.json", "utf-8"));
   const db = readDB();
 
-  if (db.users.guest.saldo <= 0)
+  // 🔹 usuário individual por cookie
+  const user = getUser(req, res, db);
+
+  if (user.saldo <= 0)
     return res.status(400).json({ error: "Sem giros" });
 
   const total = items.reduce((s, i) => s + i.chance, 0);
@@ -68,13 +108,16 @@ app.post("/api/spin", (req, res) => {
   }
 
   console.log("🎯 GIRO:", {
+    userId: req.cookies.userId, // opcional, só pra debug
     premio: prize.name,
     chance: prize.chance,
     totalItems: items.length
   });
 
-  db.users.guest.saldo--;
+  // 🔹 desconta SOMENTE do usuário atual
+  user.saldo--;
   db.spins++;
+
   writeDB(db);
 
   res.json({

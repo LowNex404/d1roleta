@@ -19,15 +19,29 @@ h1 {
   letter-spacing: 2px;
   text-transform: uppercase;
 }
+.header {
+  width: 100%;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 12px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
 
 .logo {
-  position: fixed;
-  top: 16px;
-  left: 16px; /* agora esquerda */
   width: 100px;
-  z-index: 1000;
   filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.6));
 }
+
+@media (max-width: 768px) {
+  .logo {
+    width: 80px;
+  }
+}
+
 
 .bg-logo {
   position: fixed;
@@ -40,26 +54,20 @@ h1 {
   z-index: 0;
   pointer-events: none;
 }
-@media (max-width: 768px) {
-.logo {
-  position: fixed;
-  top: 16px;
-  left: 16px; /* agora esquerda */
-  width: 80px;
-  z-index: 1000;
-  filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.6));
-}
 
-}
 body {
   margin: 0;
   min-height: 100vh;
   background: #000;
   color: #fff;
+  position: relative;
+}
+
+.page {
+  min-height: calc(100vh - 220px);
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
 }
 
 /* =====================
@@ -346,6 +354,23 @@ input, button {
   color: #ffcc33;
 }
 
+.popup.buy {
+  border: 2px solid #ff1a1a;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.9);
+}
+
+.popup-logo {
+  width: 90px;
+  margin: 10px auto 15px;
+  display: block;
+  filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.6));
+}
+
+.popup button.whatsapp {
+  margin-top: 10px;
+}
+
+
 /*.whatsapp {
   margin-top: 20px;
   text-align: center;
@@ -379,3 +404,56 @@ input, button {
   pointer-events: none;
 }
 
+.footer {
+  width: 100%;
+  margin-top: 60px;
+  padding: 25px 15px;
+  background: rgba(0, 0, 0, 0.65);
+  border-top: 1px solid rgba(255, 0, 0, 0.35);
+  display: flex;
+  justify-content: center;
+}
+
+.footer-inner {
+  max-width: 1000px;
+  width: 100%;
+  text-align: center;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.footer-inner strong {
+  color: #fff;
+}
+
+.footer-links {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-link {
+  color: #aaa;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.footer-link:hover {
+  color: #ff1a1a;
+}
+
+.footer-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #aaa;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+.footer-whatsapp:hover {
+  color: #ff1a1a;
+}

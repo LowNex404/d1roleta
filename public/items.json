@@ -1,4 +1,10 @@
-[
+[  
+  {
+    "name": "Conta 1º Passe",
+    "chance": 0.00001,
+    "colors": ["#ff0000", "#660000"],
+    "icon": "/icons/primeiro-passe.png"
+  },
   {
     "name": "Caixa Básica",
     "chance": 10,
@@ -20,8 +26,14 @@
   {
     "name": "Caixa Média",
     "chance": 2,
-    "colors": ["#444444", "#222222"],
+    "colors": ["#ff0000", "#660000"],
     "icon": "/icons/caixa-media.png"
+  },
+  {
+    "name": "Painel de Sensi",
+    "chance": 10,
+    "colors": ["#444444", "#222222"],
+    "icon": "/icons/sensi.png"
   },
   {
     "name": "Caixa Lendária",

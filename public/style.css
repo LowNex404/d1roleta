@@ -3,11 +3,12 @@
   font-family: "Poppins", sans-serif;
   font-weight: 500;
 }
-.luckiest-guy-regular {
-  font-family: "Luckiest Guy", cursive;
+.bangers-regular {
+  font-family: "Bangers", system-ui;
   font-weight: 400;
   font-style: normal;
 }
+
 
 h1, h2 {
   font-family: "Montserrat", sans-serif;
@@ -15,8 +16,9 @@ h1, h2 {
   letter-spacing: 1px;
 }
 h1 {
-  font-family: "Luckiest Guy";
-  letter-spacing: 2px;
+  font-family: "Bangers";
+  letter-spacing: 4px;
+  font-size: 46px;
   text-transform: uppercase;
 }
 .header {
@@ -33,7 +35,7 @@ h1 {
 
 .logo {
   width: 100px;
-  filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.6));
+  filter: drop-shadow(0 0 8px #86df0098);
 }
 
 @media (max-width: 768px) {
@@ -90,7 +92,7 @@ body::after {
 body::before {
   top: 200px;
   left: -280px;
-  background: radial-gradient(circle, #ff1a1a 0%, transparent 70%);
+  background: radial-gradient(circle, #99ff00 0%, transparent 70%);
   animation: floatGlow1 14s ease-in-out infinite alternate;
 }
 
@@ -98,7 +100,7 @@ body::before {
 body::after {
   bottom: -150px;   /* ⬇️ mais pra baixo */
   right: -280px;
-  background: radial-gradient(circle, #ff0000 0%, transparent 95%);
+  background: radial-gradient(circle, #64a700 0%, transparent 95%);
   animation: floatGlow2 16s ease-in-out infinite alternate;
 }
 
@@ -142,7 +144,7 @@ canvas {
   width: 100%;
   border-radius: 50%;
   border: 8px solid rgba(32, 32, 32, 0.8);
-  box-shadow: 0 0 40px rgba(94, 1, 1, 0.8);
+  box-shadow: 0 0 40px #4e7e068e;
 }
 
 .pointer {
@@ -154,8 +156,8 @@ canvas {
   height: 0;
   border-left: 14px solid transparent;
   border-right: 14px solid transparent;
-  border-top: 26px solid red;
-  filter: drop-shadow(0 0 6px rgba(255, 0, 0, 0.8));
+  border-top: 26px solid #87df00;
+  filter: drop-shadow(0 0 6px rgba(136, 255, 0, 0.404));
 }
 
 .saldo {
@@ -172,29 +174,29 @@ input, button {
 }
 
 button {
-  background: linear-gradient(135deg, #ff1a1a, #8b0000);
+  background: linear-gradient(135deg, #87df00, #467500);
   color: #fff;
   cursor: pointer;
   font-weight: bold;
   transition: all 0.25s ease;
-  box-shadow: 0 0 12px rgba(255, 0, 0, 0.6);
+  box-shadow: 0 0 12px #86df0098;
 }
 
 button:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 22px rgba(255, 0, 0, 1);
+  box-shadow: 0 0 22px #87df00;
 }
 
 input {
   background: #0a0a0a;
   color: #fff;
-  border: 1px solid rgba(255, 0, 0, 0.4);
+  border: 1px solid #467500;
   outline: none;
 }
 
 input:focus {
-  border-color: red;
-  box-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+  border-color: #87df00;
+  box-shadow: 0 0 8px #467500;
 }
 
 .whatsapp {
@@ -205,16 +207,16 @@ input:focus {
   border-radius: 6px;
   border: none;
   text-decoration: none;
-  background: linear-gradient(135deg, #ff1a1a, #8b0000);
-  color: #fff;
+  background: linear-gradient(135deg, #87df00, #467500);
+  color: #ffffff;
   cursor: pointer;
   font-weight: bold;
   transition: all 0.25s ease;
-  box-shadow: 0 0 12px rgba(255, 0, 0, 0.6);
+  box-shadow: 0 0 12px #86df00af;
 }
 .whatsapp:hover {
    transform: scale(1.05);
-   box-shadow: 0 0 22px rgba(255, 0, 0, 1);
+   box-shadow: 0 0 22px #87df00;
 }
 /* =====================
    INPUT + BOTÃO AVIÃO
@@ -355,15 +357,15 @@ input, button {
 }
 
 .popup.buy {
-  border: 2px solid #ff1a1a;
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.9);
+  border: 2px solid #87df00;
+  box-shadow: 0 0 20px #87df00;
 }
 
 .popup-logo {
   width: 90px;
   margin: 10px auto 15px;
   display: block;
-  filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.6));
+  filter: drop-shadow(0 0 8px #61a002);
 }
 
 .popup button.whatsapp {
@@ -409,7 +411,7 @@ input, button {
   margin-top: 60px;
   padding: 25px 15px;
   background: rgba(0, 0, 0, 0.65);
-  border-top: 1px solid rgba(255, 0, 0, 0.35);
+  border-top: 1px solid rgba(115, 255, 0, 0.35);
   display: flex;
   justify-content: center;
 }
@@ -441,7 +443,7 @@ input, button {
 }
 
 .footer-link:hover {
-  color: #ff1a1a;
+  color: #87df00;
 }
 
 .footer-whatsapp {
@@ -455,5 +457,5 @@ input, button {
 }
 
 .footer-whatsapp:hover {
-  color: #ff1a1a;
+  color: #87df00;
 }

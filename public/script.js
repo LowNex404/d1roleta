@@ -6,15 +6,36 @@ const actions = document.getElementById("actions");
 const videoOverlay = document.getElementById("videoOverlay");
 const rewardVideo = document.getElementById("rewardVideo");
 
-const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-const videoSrc = isMobile
-  ? "videos/reveal-mobile.mp4"
-  : "videos/reveal.mp4";
+function useMobileVideo() {
+  const isSmallScreen = Math.min(window.innerWidth, window.innerHeight) <= 768;
+  const isPortrait = window.matchMedia("(orientation: portrait)").matches;
+  return isSmallScreen && isPortrait; // só mobile+vertical
+}
 
-// troca o source dinamicamente
-rewardVideo.querySelector("source").src = videoSrc;
-rewardVideo.load();
+function setRevealVideo() {
+  const src = useMobileVideo()
+    ? "/videos/reveal-mobile.mp4"
+    : "/videos/reveal.mp4";
+
+  // evita recarregar se já estiver igual
+  if (rewardVideo.src.endsWith(src)) return;
+
+  rewardVideo.pause();
+  rewardVideo.src = src;
+  rewardVideo.load();
+
+  console.log("videoSrc:", src, "w:", innerWidth, "h:", innerHeight);
+}
+
+// set inicial
+setRevealVideo();
+
+// atualiza ao girar a tela / redimensionar
+window.addEventListener("resize", setRevealVideo);
+window.addEventListener("orientationchange", setRevealVideo);
+
+
 
 let items = [];
 let angle = 0;
@@ -116,7 +137,7 @@ function showBuyPopup() {
     <img src="images/logo.png" class="popup-logo" alt="Logo" />
 
     <a 
-      href="https://lastlink.com/p/CD7F12612/checkout-payment/"
+      href="https://lastlink.com/p/C1AAA26C6/checkout-payment/"
       class="whatsapp"
       target="_blank"
       rel="noopener noreferrer"
@@ -125,7 +146,7 @@ function showBuyPopup() {
     </a>
 
     <a 
-      href="https://lastlink.com/p/C524242FB/checkout-payment/"
+      href="https://lastlink.com/p/CF9866F33/checkout-payment/"
       class="whatsapp"
       target="_blank"
       rel="noopener noreferrer"
@@ -134,7 +155,7 @@ function showBuyPopup() {
     </a>
 
     <a 
-      href="https://lastlink.com/p/C95ADA9D8/checkout-payment/"
+      href="https://lastlink.com/p/CC09C3F1D/checkout-payment/"
       class="whatsapp"
       target="_blank"
       rel="noopener noreferrer"
